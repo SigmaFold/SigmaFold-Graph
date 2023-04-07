@@ -127,5 +127,3 @@ def update_graph_and_hover_data(n_clicks, hover_data, n_value, shape_ids, shape_
     return dash.no_update, '', '', dash.no_update, dash.no_update, dash.no_update, None
 
 
-if __name__ == '__main__':
-    app.run_server(debug=False)

@@ -105,6 +105,7 @@ webencodings==0.5.1
 websockets==10.4
 Werkzeug==2.2.3
 zipp==3.15.0
+python-rapidjson
 # pip install -e invenv
 
 

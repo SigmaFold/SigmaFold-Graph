@@ -48,7 +48,7 @@ def get_random_shape(target_n=10):
     db = SupabaseDB()
     # select a random element from the database
     random_shape = db.supabase.table("random_shape").select("*").eq("length", target_n).limit(1).execute()
-
+    
     # deserialize it 
     random_shape = deserialize_shape(random_shape.data[0]["shape_id"])
 
@@ -100,12 +100,38 @@ def get_all_sequence_data(target_n):
     :list: sequences: a list of all the sequences in the database
     """
     db = SupabaseDB()
-    # select all the shapes from the database where min_degeneracy = 2
-    sequence_data = db.supabase.table("Sequences").select("*").eq("length", target_n).execute()
+    def count_data(tb_name: str, field_name: str):
+        return db.supabase.table(tb_name).select(field_name, count='exact').execute().count
+
+    def get_field_data(tb_name: str, src_field: str, len_record: int, id_field: str = 'id'):
+        if len_record <= 1000:
+            field_data = db.supabase.table(tb_name).select(id_field, src_field).order(
+                column=id_field).execute().data
+        else:
+            rnk = int(len_record / 1000)
+            field_data = []
+            for i in range(rnk):
+                min_rg = (i * 1000) + 1
+                max_rg = (i + 1) * 1000
+                field_data = field_data + db.supabase.table(tb_name).select(id_field, src_field).order(
+                    column=id_field).range(min_rg - 1, max_rg).execute().data
+
+            field_data = field_data + db.supabase.table(tb_name).select(id_field, src_field).order(
+                column=id_field).range(max_rg, len_record).execute().data
+        return field_data
+
+    tb_name = "Sequences"
+    src_field = "*"
+    id_field = "sequence_id"
+
+    len_record = count_data(tb_name, "length")
+    sequence_data = get_field_data(tb_name, src_field, len_record, id_field)
+
+    # filter by target_n
+    sequence_data = [item for item in sequence_data if item['length'] == target_n]
 
     # convert to dataframe
-    sequence_data = pd.DataFrame(sequence_data.data)
-    
+    sequence_data = pd.DataFrame(sequence_data)
     return sequence_data
 
 # Checking if things exist 

@@ -38,7 +38,9 @@ class SupabaseDB:
     url: str = Config.URL
     key: str = Config.KEY
 
-    supabase: Client = create_client(url, key)
+    client_options= ClientOptions(postgrest_client_timeout=6000.0)
+
+    supabase: Client = create_client(url, key, options=client_options)
 
 # ========================= JSON Data Saving Toolkit =========================
 def upload_data(n):

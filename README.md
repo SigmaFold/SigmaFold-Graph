@@ -4,4 +4,4 @@
 
 # SigmaFold Graph Visualization
 
-This project provides an interactive graph visualization of RNA sequences and their corresponding secondary structures, generated using the SigmaFold algorithm.
+The Protein Folding Graph Network is a web application that visualizes protein folding patterns based on the HP model. The HP model simplifies protein structures to a sequence of hydrophobic (H) and polar (P) amino acids, and it has been used to study the folding patterns of proteins in various contexts.

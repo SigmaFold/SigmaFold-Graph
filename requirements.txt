@@ -1,0 +1,40 @@
+streamlit
+networkx
+
+# Data analysis
+numpy
+scipy
+pandas
+matplotlib
+
+# tools
+tabulate # prints tables nice and sexy
+mmh3
+python-dotenv # handes .env files
+supabase # database
+
+# graph UI 
+plotly
+dash
+dash-bootstrap-components
+dash-core-components
+dash-html-components
+gunicorn
+plotly
+Pillow
+
+# DeepRL
+stable-baselines3
+gym >= 0.26.0
+keras
+tensorflow
+
+# Unit testing 
+pytest
+
+
+# will also need to run the following command
+# cd tweaking-algorithm
+# pip install -e invenv
+
+

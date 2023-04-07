@@ -40,10 +40,14 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 app.layout = dbc.Container([
-    dbc.Row([
-        dbc.Col(html.Img(src='/assets/SigmaFold_logo.png', alt='SigmaFold', style={'width': '400px', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}), width=12)
-    ]),
-
+    html.Div(
+    html.Img(
+        id='logo', 
+        src='https://i.postimg.cc/J02YgJC5/Sigma-Fold-Logo-removebg-preview.png', 
+        style={'width': '500px', 'height': 'auto'}
+    ),
+    className='d-flex justify-content-center'
+    ),
     dbc.Row([
         dbc.Col([
     

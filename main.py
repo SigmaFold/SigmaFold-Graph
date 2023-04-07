@@ -41,8 +41,13 @@ server = app.server
 
 app.layout = dbc.Container([
     dbc.Row([
+        dbc.Col(html.Img(src='/assets/SigmaFold_logo.png', alt='SigmaFold', style={'width': '400px', 'display': 'block', 'margin-left': 'auto', 'margin-right': 'auto'}), width=12)
+    ]),
+
+    dbc.Row([
         dbc.Col([
-            html.H3("Select n value"),
+    
+            html.H5("Select length of the chain (n)."),
             dcc.Slider(
                 id='n-slider',
                 min=MIN_N,
@@ -53,7 +58,7 @@ app.layout = dbc.Container([
             ),
             html.Br(),
             html.Button('Update Graph', id='update-graph-button', n_clicks=0),
-            dcc.Graph(id='graph'),
+            dcc.Graph(id='graph', figure=initial_fig),
             dcc.Loading(
                 id="loading",
                 type="circle",
@@ -127,3 +132,5 @@ def update_graph_and_hover_data(n_clicks, hover_data, n_value, shape_ids, shape_
     return dash.no_update, '', '', dash.no_update, dash.no_update, dash.no_update, None
 
 
+if __name__ == '__main__':
+    app.run_server(debug=True)

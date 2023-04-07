@@ -106,7 +106,8 @@ def create_network_graph(n):
         color_continuous_scale='Viridis',
         color_continuous_midpoint=0,
         hover_name=shape_ids,
-        custom_data=[shape_ids]
+        custom_data=[shape_ids],
+        labels={'color': 'Degree'}
     )
 
     fig.update_traces(

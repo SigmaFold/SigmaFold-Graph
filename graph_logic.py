@@ -9,7 +9,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from library.db_query_templates import get_all_sequence_data, get_all_shape_data
 from library.shape_helper import deserialize_shape
 import plotly.express as px
-
+# save plot as pdf
+import plotly.io as pio
 # n value controls based on what is available in the database
 MIN_N = 8
 MAX_N = 14
@@ -103,7 +104,7 @@ def create_network_graph(n):
         x=xs,
         y=ys,
         color=node_colors,
-        color_continuous_scale='Viridis',
+        color_continuous_scale='plasma',
         color_continuous_midpoint=0,
         hover_name=shape_ids,
         custom_data=[shape_ids],
@@ -127,17 +128,19 @@ def create_network_graph(n):
 
     # Use the Dash app to serve the figure
     fig.update_layout(
+        # remove x and y labels
+        xaxis=dict(showticklabels=False),
+        yaxis=dict(showticklabels=False),
+
         autosize=False,
         width=900,
         height=900,
-        title='Graph Visualization',
-        xaxis=dict(title='X'),
-        yaxis=dict(title='Y'),
+        title=f"Graph Visualization (n={n})",
         hovermode='closest',
         clickmode='event+select',
     )
     print(f'n: {n}, sequences_df shape: {sequences_df.shape}, unique shape_ids: {sequences_df["shape_mapping"].nunique()}')
-
+    pio.write_image(fig, f"graph_{n}.pdf")
     return fig, shape_ids, shape_matrices, shapes_df, sequences_df
 
 
